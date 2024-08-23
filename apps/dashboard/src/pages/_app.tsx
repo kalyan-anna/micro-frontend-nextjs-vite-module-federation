@@ -6,7 +6,7 @@ function CustomApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <Head>
-        <title>Welcome to micro-frontend-vite-module-federation!</title>
+        <title>Analytics | Dashboard</title>
       </Head>
       <main className="app">
         <Component {...pageProps} />
