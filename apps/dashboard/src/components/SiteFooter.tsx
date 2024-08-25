@@ -1,3 +1,4 @@
+import dynamic from 'next/dynamic';
 import React from 'react';
 
 export const SiteFooter = () => {
@@ -7,3 +8,10 @@ export const SiteFooter = () => {
     </footer>
   );
 };
+
+// export const SiteFooter = dynamic(
+//   () => import('shared-app/SiteFooter').then((mod) => mod.SiteFooter),
+//   {
+//     ssr: false,
+//   }
+// );

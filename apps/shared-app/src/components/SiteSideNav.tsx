@@ -6,14 +6,6 @@ import {
   faAddressBook,
 } from '@fortawesome/free-solid-svg-icons';
 import cx from 'classnames';
-import dynamic from 'next/dynamic';
-
-// export const SiteSideNav = dynamic(
-//   () => import('shared-app/SiteSideNav').then((mod) => mod.SiteSideNav),
-//   {
-//     ssr: false,
-//   }
-// );
 
 interface SiteSideNavProps {
   activePath: string;
