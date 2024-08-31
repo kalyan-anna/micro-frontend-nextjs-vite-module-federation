@@ -4,6 +4,7 @@ import './styles.css';
 
 import { config } from '@fortawesome/fontawesome-svg-core';
 import '@fortawesome/fontawesome-svg-core/styles.css';
+import { AuthenticatedTemplate } from '../components/AuthenticatedTemplate';
 config.autoAddCss = false;
 
 function CustomApp({ Component, pageProps }: AppProps) {
@@ -12,9 +13,9 @@ function CustomApp({ Component, pageProps }: AppProps) {
       <Head>
         <title>Analytics | Dashboard</title>
       </Head>
-      <main className="app">
+      <AuthenticatedTemplate activePath="/dashboard">
         <Component {...pageProps} />
-      </main>
+      </AuthenticatedTemplate>
     </>
   );
 }

@@ -3,6 +3,7 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { nxViteTsPaths } from '@nx/vite/plugins/nx-tsconfig-paths.plugin';
 import federation from '@originjs/vite-plugin-federation';
+import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({
   root: __dirname,
@@ -21,13 +22,23 @@ export default defineConfig({
   plugins: [
     react(),
     nxViteTsPaths(),
+    svgr({
+      // svgr options: https://react-svgr.com/docs/options/
+      svgrOptions: {
+        exportType: 'default',
+        ref: true,
+        svgo: false,
+        titleProp: true,
+      },
+      include: '**/*.svg',
+    }),
     federation({
       name: 'shared-app',
       filename: 'remoteEntry.js',
       exposes: {
-        './SiteHeader': './src/components/SiteHeader.tsx',
-        './SiteFooter': './src/components/SiteFooter.tsx',
-        './SiteSideNav': './src/components/SiteSideNav.tsx',
+        './AuthenticatedTemplate': './src/components/AuthenticatedTemplate.tsx',
+        './UnauthenticatedTemplate':
+          './src/components/UnauthenticatedTemplate.tsx',
       },
       shared: ['react'],
     }),

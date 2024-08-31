@@ -20,11 +20,11 @@ export const SiteSideNav: React.FC<SiteSideNavProps> = ({ activePath }) => {
       <ul className="list-reset flex flex-col">
         <li
           className={cx('w-full h-full py-3 px-2 border-b border-light-borde', {
-            'bg-white': activePath === '/',
+            'bg-white': activePath === '/dashboard',
           })}
         >
           <a
-            href="/"
+            href="/dashboard"
             className="font-sans font-hairline hover:font-normal text-sm text-nav-item no-underline"
           >
             <FontAwesomeIcon icon={faTachometerAlt} className="mr-1" />
