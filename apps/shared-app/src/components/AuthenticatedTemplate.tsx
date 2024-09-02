@@ -19,9 +19,8 @@ export const AuthenticatedTemplate: ComponentType<
     }
   }, [isAuthenticated]);
 
-  return (
-    <Template activePath={activePath}>
-      {isAuthenticated ? children : <Spinner />}
-    </Template>
-  );
+  if (!isAuthenticated) {
+    return <Spinner />;
+  }
+  return <Template activePath={activePath}>{children}</Template>;
 };

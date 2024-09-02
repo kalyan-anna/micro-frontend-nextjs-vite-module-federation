@@ -14,15 +14,19 @@ export const SiteHeader = () => {
           </a>
         </div>
         <div className="p-1 flex flex-row items-center">
-          <a
-            href="https://github.com"
-            className="text-white p-2 mr-2 no-underline hidden md:block lg:block"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Github
-          </a>
-          <Avatar width={50} height={50} />
+          {isAuthenticated && (
+            <>
+              <a
+                href="https://github.com"
+                className="text-white p-2 mr-2 no-underline hidden md:block lg:block"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Github
+              </a>
+              <Avatar width={50} height={50} />
+            </>
+          )}
           {isAuthenticated ? (
             <button
               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"

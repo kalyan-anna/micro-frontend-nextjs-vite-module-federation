@@ -3,11 +3,16 @@ import { Template } from './Template';
 import '../styles.css';
 
 interface UnauthenticatedTemplateProps extends PropsWithChildren {
-  activePath: string;
+  activePath?: string;
+  focused?: boolean;
 }
 
 export const UnauthenticatedTemplate: React.FC<
   UnauthenticatedTemplateProps
-> = ({ children, activePath }) => {
-  return <Template activePath={activePath}>{children}</Template>;
+> = ({ children, activePath = '/', focused = false }) => {
+  return (
+    <Template activePath={activePath} focused={focused}>
+      {children}
+    </Template>
+  );
 };

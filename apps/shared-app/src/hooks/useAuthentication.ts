@@ -12,7 +12,10 @@ export const useAuthentication = () => {
   const [, signOut] = useAtom(signOutAtom);
   return {
     isAuthenticated,
-    signIn,
+    signIn: useCallback(() => {
+      signIn();
+      window.location.href = '/dashboard';
+    }, [signIn]),
     signOut: useCallback(() => {
       signOut();
       window.location.href = '/';
