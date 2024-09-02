@@ -45,4 +45,5 @@ typescript
 zustand not working. 
 Cant share custom hook as hooks can't be dynamically loaded. (vite - nextjs)
 vite cant have base path - https://github.com/originjs/vite-plugin-federation/issues/580
+unable to share react with vite and wnextjs
 

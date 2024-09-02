@@ -26,7 +26,7 @@ export default defineConfig({
       remotes: {
         'shared-app': 'http://localhost:4300/assets/remoteEntry.js',
       },
-      shared: ['react'],
+      shared: ['react', 'react-dom', 'jotai'],
     }),
   ],
 

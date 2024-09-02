@@ -41,7 +41,7 @@ export default defineConfig({
           './src/components/UnauthenticatedTemplate.tsx',
         './useAuthentication': './src/hooks/useAuthentication.ts',
       },
-      shared: ['react'],
+      shared: ['react', 'react-dom', 'jotai'],
     }),
   ],
   build: {
