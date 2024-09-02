@@ -1,6 +1,8 @@
-import { ComponentType, PropsWithChildren } from 'react';
+import { ComponentType, PropsWithChildren, useEffect } from 'react';
 import '../styles.css';
 import { Template } from './Template';
+import { useAuthentication } from '../hooks/useAuthentication';
+import { Spinner } from './Spinner';
 
 interface AuthenticatedTemplateProps extends PropsWithChildren {
   activePath: string;
@@ -9,5 +11,17 @@ interface AuthenticatedTemplateProps extends PropsWithChildren {
 export const AuthenticatedTemplate: ComponentType<
   AuthenticatedTemplateProps
 > = ({ children, activePath }) => {
-  return <Template activePath={activePath}>{children}</Template>;
+  const { isAuthenticated } = useAuthentication();
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      window.location.href = '/';
+    }
+  }, [isAuthenticated]);
+
+  return (
+    <Template activePath={activePath}>
+      {isAuthenticated ? children : <Spinner />}
+    </Template>
+  );
 };

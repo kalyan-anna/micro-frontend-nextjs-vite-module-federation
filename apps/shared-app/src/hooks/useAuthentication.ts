@@ -1,12 +1,21 @@
-import { useAuthState } from '../state/auth/store';
+import { useAtom } from 'jotai';
+import {
+  authenticationAtom,
+  signInAtom,
+  signOutAtom,
+} from '../state/auth/store';
+import { useCallback } from 'react';
 
 export const useAuthentication = () => {
-  const isAuthenticated = useAuthState.use.isAuthenticated();
-  const { singIn, singOut } = useAuthState.use.actions();
-
+  const [isAuthenticated] = useAtom(authenticationAtom);
+  const [, signIn] = useAtom(signInAtom);
+  const [, signOut] = useAtom(signOutAtom);
   return {
     isAuthenticated,
-    singIn,
-    singOut,
+    signIn,
+    signOut: useCallback(() => {
+      signOut();
+      window.location.href = '/';
+    }, [signOut]),
   };
 };

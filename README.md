@@ -40,3 +40,6 @@ Ideally, your micro frontends should be framework agnostic, you will have to sta
 
 Microfrontends allow different teams to work independently on separate parts of a larger frontend. There are various patterns for implementing microfrontends. For this example, we will use a composable microfrontend that composes its components using a shell app.
 
+cons
+typescript
+zustand not working. 
