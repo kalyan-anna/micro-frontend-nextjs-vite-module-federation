@@ -17,6 +17,7 @@ const nextConfig = {
   webpack: (config, options) => {
     config.plugins.push(
       new NextFederationPlugin({
+        remoteType: 'module',
         name: 'dashboard-app',
         filename: 'remoteEntry.js',
         remotes: {

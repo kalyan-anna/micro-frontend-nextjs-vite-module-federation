@@ -39,6 +39,7 @@ export default defineConfig({
         './AuthenticatedTemplate': './src/components/AuthenticatedTemplate.tsx',
         './UnauthenticatedTemplate':
           './src/components/UnauthenticatedTemplate.tsx',
+        './useAuthentication': './src/hooks/useAuthentication.ts',
       },
       shared: ['react'],
     }),
