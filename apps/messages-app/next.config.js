@@ -13,26 +13,12 @@ const nextConfig = {
     // See: https://github.com/gregberge/svgr
     svgr: false,
   },
-  async rewrites() {
-    return [
-      {
-        source: '/dashboard/:slug*',
-        destination: 'http://localhost:3031/dashboard/:slug*',
-      },
-      {
-        source: '/@fs/:slug*',
-        destination: 'http://localhost:3031/dashboard/@fs/:slug*',
-      },
-      {
-        source: '/messages/:slug*',
-        destination: 'http://localhost:3032/messages/:slug*',
-      },
-    ];
-  },
+  basePath: '/messages',
   webpack: (config, options) => {
     config.plugins.push(
       new NextFederationPlugin({
-        name: 'home-app',
+        remoteType: 'module',
+        name: 'messages-app',
         filename: 'remoteEntry.js',
         remotes: {
           'shared-app': `promise import("http://localhost:4300/assets/remoteEntry.js")`,
