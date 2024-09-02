@@ -41,7 +41,7 @@
       "options": {
         "buildTargetName": "build",
         "testTargetName": "test",
-        "serveTargetName": "serve",
+        "serveTargetName": "dev",
         "previewTargetName": "preview",
         "serveStaticTargetName": "serve-static"
       }

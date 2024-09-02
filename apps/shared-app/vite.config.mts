@@ -52,14 +52,6 @@ export default defineConfig({
     commonjsOptions: {
       transformMixedEsModules: true,
     },
-    rollupOptions: {
-      external: ['react'],
-      output: {
-        globals: {
-          react: 'React',
-        },
-      },
-      treeshake: true,
-    },
+    modulePreload: false,
   },
 });

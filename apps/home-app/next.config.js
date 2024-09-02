@@ -19,6 +19,10 @@ const nextConfig = {
         source: '/dashboard/:slug*',
         destination: 'http://localhost:3031/dashboard/:slug*',
       },
+      {
+        source: '/@fs/:slug*',
+        destination: 'http://localhost:3031/dashboard/@fs/:slug*',
+      },
     ];
   },
   webpack: (config, options) => {

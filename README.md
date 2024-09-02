@@ -43,4 +43,6 @@ Microfrontends allow different teams to work independently on separate parts of 
 cons
 typescript
 zustand not working. 
-Cant share custom hook as hooks can't be dynamically loaded.
+Cant share custom hook as hooks can't be dynamically loaded. (vite - nextjs)
+vite cant have base path - https://github.com/originjs/vite-plugin-federation/issues/580
+
