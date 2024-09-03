@@ -6,6 +6,9 @@ Micro-frontend is an architectural approach that breaks down a large, monolithic
 
 To ensure consistency across all micro-frontends, shared components like templates are created. A template component might contain Header, Footer, Size-Nav and Authentication.
 
+![Template](docs/micro-frontend-template.jpg)
+
+
 There are several methods to distribute these shared components:
 - Build-time integration: Components are included during the build process.
 - Runtime integration: Components are loaded dynamically at runtime.
