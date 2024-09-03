@@ -1,49 +1,76 @@
 # Micro-Frontend Module Federation
+Experiment to determine if Vite's Module Federation can be used in conjunction with NextJS Module Federation.
 
-define shared components and utilities to be shared among applications
+## Intro
+Micro-frontend is an architectural approach that breaks down a large, monolithic frontend application into smaller, self-contained, and independently deployable micro-applications. For example, an e-commerce website might be divided into domains such as products, orders, payments, and users, each handled by separate micro-frontends.
 
-For simplicity, I have used a monorepo setup but it doesn't have to be and might be better to set it up as separate repo for each apps.
+To ensure consistency across all micro-frontends, shared components like templates are created. A template component might contain Header, Footer, Size-Nav and Authentication.
 
-We will set up a container application which is a container for hosting all the entry points for micro-frontend.
+There are several methods to distribute these shared components:
+- Build-time integration: Components are included during the build process.
+- Runtime integration: Components are loaded dynamically at runtime.
+- CMS: A content management system is used to manage and deliver shared components.
 
-Micro-frontend is an architectural pattern that involves breaking down a monolithic frontend application into smaller, self-contained, and independent micro-applications. Each micro-frontend represents a distinct feature or module of the overall application and can be developed, deployed, and maintained independently.
+##### Build-time Integration
+Build-time integration is ideal for smaller-sized applications with a limited number of micro-frontends. In this approach, shared components are distributed as NPM packages, which each micro-frontend consumes as a dependency. However, this method requires all micro-frontends to update to the exact same version of the shared components, necessitating simultaneous deployment of all applications whenever updates are made. 
 
-To define each micro-frontend, we will divide them by business domains. For instance, an e-commerce website can have an order domain, payment domain, or user domain. 
+This method requires better coordination and collaboration among teams. Any changes required to rebuild and redeploy the whole application
 
-Two categories of micro-frontend
-- Build-time integration
-- Runtime integration
+##### CMS
+Content Management Systems (CMS) like Adobe AEM, Drupal, or Laravel are well-suited for larger applications with hundreds of pages (micro-frontends). They help manage and deliver shared components efficiently across numerous micro-frontends.
 
-Build-time
-Deploy it as an NPM package
-Install the package in the container application
-Requires better coordination and collaboration among teams
-Any changes required to rebuild and redeploy the whole application
-built-time integration by using NPM packages
+##### Runtime Integration
+Runtime integration is ideal for medium-sized applications with around 10 to 15 micro-frontends, especially when avoiding the cost of a CMS license. In this approach, shared templates are hosted as a separate remote application, and each micro-frontend loads the remote template at runtime. Any changes made to the shared templates or components are reflected immediately in production without requiring redeployment of the other micro-frontend applications.
 
-Runtime
-The container application integrates the micro-frontend in runtime or server-side
-Tooling and setup can be complicated
+Tooling and initial setup could be complicated.
 
-Module Federation is a technique created by Webpack that allows the sharing of modules (code) between the container and remote apps. It enables the container app to dynamically load and run remote app code as if it were part of the container app itself. Remote apps can expose specific modules that the container app can consume, enabling code sharing and seamless integration.
+## Module Federation
+Module Federation is a technique for runtime code sharing, where modules (remote components) are dynamically integrated into a container application (micro-frontend) at runtime. Changes to the remote components are immediately reflected in production once deployed.
 
-Run-time code sharing — The modules are federated in run-time. The micro-frontends can be managed and deployed independently. The changes of the micro-frontend can be reflected immediately if it deploys to the production.
+This example aims to test whether Vite Module Federation (using Rollup) can be used to build shared templates or components that can be consumed by NextJS micro-frontend applications (using Webpack).
 
+This example includes the following remote components:
+- AuthenticatedTemplate
+- UnauthenticatedTemplate
 
-loading micro frontends into a shell application.
+The micro-frontend applications involved are:
+- Home App (NextJS)
+- Dashboard App (Vite)
+- Messages App (NextJS)
+- Settings App (NextJS)
 
-These packages are only loaded once at runtime. This is vital because having ten micro frontends doesn't mean you want to load Angular or other packages ten times!
+## Less learnt / Challenges
+- Typescript. Unable to determine the types of shared components as they are loaded at runtime.
+- Zustand not working. Any package that uses `use-sync-external-store`, will not work.
+https://github.com/pmndrs/zustand/discussions/1881
+- State sharing between remote components and micro-frontends, such as hooks or contexts, is not possible due to the use of different build tools: remote apps are built with Vite (Rollup), while micro-frontends use NextJS (Webpack). To enable state sharing, remote apps would need to be built with Webpack as well.
+- Server side rendering setup could be complex (Didn't try)
+- Multiple versions of React may be loaded if there's a version mismatch between remote components and micro-frontends, making version management more challenging.
+- Vite Apps with basePath is not working with module federation
+  https://github.com/originjs/vite-plugin-federation/issues/580
 
-Of course, when sharing packages at runtime, we might end up with version conflicts. Fortunately, Module Federation also got us covered here: It provides several strategies for dealing with version mismatches.
+## Running Example App
+This example app is set up as a monorepo using NX. Ideally, each micro-frontend would have its own repository.
 
-Ideally, your micro frontends should be framework agnostic, you will have to standardize a way to pass data between micro frontends.
+**console 1**
+```shell
+nvm use
+npm install
 
-Microfrontends allow different teams to work independently on separate parts of a larger frontend. There are various patterns for implementing microfrontends. For this example, we will use a composable microfrontend that composes its components using a shell app.
+nx build  shared-app
+nx preview  shared-app
+```
 
-cons
-typescript
-zustand not working. 
-Cant share custom hook as hooks can't be dynamically loaded. (vite - nextjs)
-vite cant have base path - https://github.com/originjs/vite-plugin-federation/issues/580
-unable to share react with vite and wnextjs
+**console 2**
+```shell
+NEXT_PRIVATE_LOCAL_WEBPACK=true nx run-many --target=dev --projects=home-app,dashboard-vite-app,messages-app,settings-app
+```
+
+**console 3**
+This is optional. Sometimes NX is unable to start all the apps simultaneously. 
+Even if it fails to start, it might not be required to run this app.
+```shell
+nx dev settings-app
+nx preview  shared-app
+```
 
