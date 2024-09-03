@@ -42,7 +42,7 @@ The micro-frontend applications involved are:
 - Messages App (NextJS)
 - Settings App (NextJS)
 
-## Less learnt / Challenges
+## Lesson learnt / Challenges
 - Typescript. Unable to determine the types of shared components as they are loaded at runtime.
 - Zustand not working. Any package that uses `use-sync-external-store`, will not work.
 https://github.com/pmndrs/zustand/discussions/1881
