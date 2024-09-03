@@ -47,6 +47,7 @@ The micro-frontend applications involved are:
 - Zustand not working. Any package that uses `use-sync-external-store`, will not work.
 https://github.com/pmndrs/zustand/discussions/1881
 - State sharing between remote components and micro-frontends, such as hooks or contexts, is not possible due to the use of different build tools: remote apps are built with Vite (Rollup), while micro-frontends use NextJS (Webpack). To enable state sharing, remote apps would need to be built with Webpack as well.
+E.g. webpack-to-webpack https://github.com/kevinuehara/microfrontends-module-federation/tree/main
 - Server side rendering setup could be complex (Didn't try)
 - Multiple versions of React may be loaded if there's a version mismatch between remote components and micro-frontends, making version management more challenging.
 - Vite Apps with basePath is not working with module federation
