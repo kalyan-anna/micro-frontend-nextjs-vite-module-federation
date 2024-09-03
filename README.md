@@ -14,15 +14,15 @@ There are several methods to distribute these shared components:
 - Runtime integration: Components are loaded dynamically at runtime.
 - CMS: A content management system is used to manage and deliver shared components.
 
-##### Build-time Integration
+#### Build-time Integration
 Build-time integration is ideal for smaller-sized applications with a limited number of micro-frontends. In this approach, shared components are distributed as NPM packages, which each micro-frontend consumes as a dependency. However, this method requires all micro-frontends to update to the exact same version of the shared components, necessitating simultaneous deployment of all applications whenever updates are made. 
 
 This method requires better coordination and collaboration among teams. Any changes required to rebuild and redeploy the whole application
 
-##### CMS
+#### CMS
 Content Management Systems (CMS) like Adobe AEM, Drupal, or Laravel are well-suited for larger applications with hundreds of pages (micro-frontends). They help manage and deliver shared components efficiently across numerous micro-frontends.
 
-##### Runtime Integration
+#### Runtime Integration
 Runtime integration is ideal for medium-sized applications with around 10 to 15 micro-frontends, especially when avoiding the cost of a CMS license. In this approach, shared templates are hosted as a separate remote application, and each micro-frontend loads the remote template at runtime. Any changes made to the shared templates or components are reflected immediately in production without requiring redeployment of the other micro-frontend applications.
 
 Tooling and initial setup could be complicated.
